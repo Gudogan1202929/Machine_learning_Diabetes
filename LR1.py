@@ -8,14 +8,13 @@ class LR1:
         file_path = "Diabetes.csv"
         data = pd.read_csv(file_path)
 
-        cols_to_replace = ['PGL', 'DIA', 'TSF', 'INS', 'BMI']
-        data[cols_to_replace] = data[cols_to_replace].replace(0, pd.NA)
-        data.fillna(data.mean(), inplace=True)
+        cols_to_replace = ['PGL', 'DIA', 'TSF', 'BMI']
+        data[cols_to_replace] = data[cols_to_replace].replace(0, pd.NA).fillna(data.mean())
 
         X = data.drop(['AGE'], axis=1)
         y = data['AGE']
 
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=4)
 
         model_LR1 = LinearRegression()
 

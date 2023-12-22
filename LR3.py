@@ -8,16 +8,15 @@ class LR3:
     def model3():
         data = pd.read_csv('Diabetes.csv')
 
-        cols_to_replace = ['PGL', 'DIA']
-        data[cols_to_replace] = data[cols_to_replace].replace(0, pd.NA)
-        data.fillna(data.mean(), inplace=True)
-
         important_features = ['NPG', 'PGL', 'DIA']
 
         X = data[important_features]
         y = data['AGE']
 
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+        cols_to_replace = ['PGL', 'DIA']
+        data[cols_to_replace] = data[cols_to_replace].replace(0, pd.NA).fillna(data.mean())
+
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=4)
 
         model_LR3 = LinearRegression()
 

@@ -9,8 +9,8 @@ class KNN4:
         data = pd.read_csv('Diabetes.csv')
 
         cols_to_replace = ['PGL', 'DIA', 'TSF', 'INS', 'BMI']
-        data[cols_to_replace] = data[cols_to_replace].replace(0, pd.NA)
-        data.fillna(data.mean(), inplace=True)
+
+        data[cols_to_replace] = data[cols_to_replace].replace(0, pd.NA).fillna(data.mean())
 
         X = data.drop(['Diabetic'], axis=1)
         y = data['Diabetic']

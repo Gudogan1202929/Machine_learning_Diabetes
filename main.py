@@ -11,11 +11,9 @@ file_path = "Diabetes.csv"
 data = pd.read_csv(file_path)
 
 cols_to_replace = ['PGL', 'DIA', 'TSF', 'INS', 'BMI']
-data[cols_to_replace] = data[cols_to_replace].replace(0, pd.NA)
-data.fillna(data.mean(), inplace=True)
+data[cols_to_replace] = data[cols_to_replace].replace(0, pd.NA).fillna(data.mean())
 
-summary_stats = data.describe()
-print(summary_stats)
+print(data.describe().transpose())
 
 sns.countplot(x='Diabetic', data=data)
 plt.title('Distribution of Diabetic Class')
@@ -26,16 +24,15 @@ plt.show()
 age_bins = [20, 30, 40, 50, 60, 70, 80, 90]
 age_labels = ['20-29', '30-39', '40-49', '50-59', '60-69', '70-79', '80-89']
 
-data['Age_Group'] = pd.cut(data['AGE'], bins=age_bins, labels=age_labels, right=False)
+data['Age_Group'] = pd.cut(data['AGE'], bins=age_bins, labels=age_labels)
 
 diabetic_data = data[data['Diabetic'] == 1]
 
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(8, 6))
 sns.histplot(data=diabetic_data, x='Age_Group', bins=len(age_labels))
 plt.title('Diabetics Distribution by Age Groups')
 plt.xlabel('Age Groups')
 plt.ylabel('Number of Diabetics')
-plt.xticks(rotation=45)
 plt.show()
 
 plt.figure(figsize=(8, 6))
